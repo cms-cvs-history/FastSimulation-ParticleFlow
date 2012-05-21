@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
-FSparticleFlow = cms.EDProducer("FSPFProducer",
+particleFlow = cms.EDProducer("FSPFProducer",
                                 # PFCandidate label
-                                pfCandidates = cms.InputTag("particleFlow"),
+                                pfCandidates = cms.InputTag("particleFlowBeforePatch"),
                                 par1 = cms.double(0.145),
                                 par2 = cms.double(0.0031),
                                 barrel_th = cms.double(0.8),

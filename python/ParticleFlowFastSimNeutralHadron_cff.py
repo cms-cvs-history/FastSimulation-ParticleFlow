@@ -6,8 +6,14 @@ from RecoParticleFlow.PFClusterProducer.particleFlowCluster_cff import *
 from RecoParticleFlow.PFTracking.particleFlowTrackWithDisplacedVertex_cff import *
 from RecoParticleFlow.PFProducer.particleFlowSimParticle_cff import *
 from RecoParticleFlow.PFProducer.particleFlowBlock_cff import *
-from RecoParticleFlow.PFProducer.particleFlow_cff import *
+#from RecoParticleFlow.PFProducer.particleFlow_cff import *
+
+# AG
+import RecoParticleFlow.PFProducer.particleFlow_cfi 
+particleFlowBeforePatch = RecoParticleFlow.PFProducer.particleFlow_cfi.particleFlow.clone() 
+
 from RecoParticleFlow.PFProducer.pfElectronTranslator_cff import *
+pfElectronTranslator.PFCandidateElectron = cms.InputTag("particleFlowBeforePatch:electrons")
 from RecoParticleFlow.PFProducer.pfPhotonTranslator_cff import *
 from RecoParticleFlow.PFTracking.trackerDrivenElectronSeeds_cff import *
 from RecoParticleFlow.PFTracking.mergedElectronSeeds_cfi import *
@@ -38,14 +44,13 @@ particleFlowClusterHFHAD.thresh_Clean_Endcap = cms.double(1E5)
 #particleFlow.usePFConversions = cms.bool(True)
 #particleFlow.usePFDecays = cms.bool(True)
 
-
 famosParticleFlowSequence = cms.Sequence(
     caloTowersRec+
 #    pfTrackElec+
     particleFlowTrackWithDisplacedVertex+
     particleFlowBlock+
+    particleFlowBeforePatch+
     particleFlow+
-    FSparticleFlow+
     pfElectronTranslatorSequence+
     pfPhotonTranslatorSequence
 )
@@ -53,10 +58,10 @@ famosParticleFlowSequence = cms.Sequence(
 # PF Reco Jets and MET
 
 from RecoJets.JetProducers.PFJetParameters_cfi import PFJetParameters
-PFJetParameters.src = cms.InputTag("FSparticleFlow")
+#PFJetParameters.src = cms.InputTag("FSparticleFlow")
 from RecoJets.Configuration.RecoPFJets_cff import *
 from RecoMET.METProducers.PFMET_cfi import *
-pfMet.src = cms.InputTag("FSparticleFlow")
+#pfMet.src = cms.InputTag("FSparticleFlow")
 from RecoMET.Configuration.RecoPFMET_cff import *
 
 PFJetMet = cms.Sequence(

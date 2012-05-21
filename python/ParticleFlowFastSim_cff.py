@@ -6,8 +6,15 @@ from RecoParticleFlow.PFClusterProducer.particleFlowCluster_cff import *
 from RecoParticleFlow.PFTracking.particleFlowTrackWithDisplacedVertex_cff import *
 from RecoParticleFlow.PFProducer.particleFlowSimParticle_cff import *
 from RecoParticleFlow.PFProducer.particleFlowBlock_cff import *
-from RecoParticleFlow.PFProducer.particleFlow_cff import *
+#from RecoParticleFlow.PFProducer.particleFlow_cff import *
+
+# AG
+import RecoParticleFlow.PFProducer.particleFlow_cfi 
+particleFlowBeforePatch = RecoParticleFlow.PFProducer.particleFlow_cfi.particleFlow.clone() 
+
+
 from RecoParticleFlow.PFProducer.pfElectronTranslator_cff import *
+pfElectronTranslator.PFCandidateElectron = cms.InputTag("particleFlowBeforePatch:electrons")
 from RecoParticleFlow.PFProducer.pfPhotonTranslator_cff import *
 from RecoParticleFlow.PFTracking.trackerDrivenElectronSeeds_cff import *
 from RecoParticleFlow.PFTracking.mergedElectronSeeds_cfi import *
@@ -44,8 +51,8 @@ famosParticleFlowSequence = cms.Sequence(
 #    pfTrackElec+
     particleFlowTrackWithDisplacedVertex+
     particleFlowBlock+
+    particleFlowBeforePatch+
     particleFlow+
-    FSparticleFlow+
     pfElectronTranslatorSequence+
     pfPhotonTranslatorSequence
 )
