@@ -14,7 +14,7 @@ from RecoParticleFlow.PFTracking.mergedElectronSeeds_cfi import *
 from FastSimulation.ParticleFlow.FSparticleFlow_cfi import *
 from RecoParticleFlow.PFProducer.pfGsfElectronCiCSelector_cff import *
 from RecoParticleFlow.PFProducer.pfLinker_cff import *
-
+particleFlow.PFCandidate = [cms.InputTag("FSparticleFlow")]
 
 particleFlowSimParticle.sim = 'famosSimHits'
 
@@ -59,10 +59,10 @@ particleFlowLinks = cms.Sequence(particleFlow)
 # PF Reco Jets and MET
 
 from RecoJets.JetProducers.PFJetParameters_cfi import PFJetParameters
-PFJetParameters.src = cms.InputTag("FSparticleFlow")
+#PFJetParameters.src = cms.InputTag("FSparticleFlow")
 from RecoJets.Configuration.RecoPFJets_cff import *
 from RecoMET.METProducers.PFMET_cfi import *
-pfMet.src = cms.InputTag("FSparticleFlow")
+#pfMet.src = cms.InputTag("FSparticleFlow")
 from RecoMET.Configuration.RecoPFMET_cff import *
 
 PFJetMet = cms.Sequence(
@@ -74,7 +74,8 @@ PFJetMet = cms.Sequence(
 
 # Tau tagging
 
-from FastSimulation.ParticleFlow.TauTaggingFastSimNeutralHadron_cff import *
+#from FastSimulation.ParticleFlow.TauTaggingFastSimNeutralHadron_cff import *
+from FastSimulation.ParticleFlow.TauTaggingFastSim_cff import *
 
 
 
